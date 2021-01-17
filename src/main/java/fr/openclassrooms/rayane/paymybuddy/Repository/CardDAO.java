@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
+/** CardDAO describe the crud methods expected to be implemented for the DAO */
 @Repository
 public interface CardDAO {
     Boolean addCard(String cardNumber, Date expirationDate);

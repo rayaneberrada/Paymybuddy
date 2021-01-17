@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/** TransactionDAO describe the methods expected to be implemented for the DAO */
 @Repository
 public interface TransactionDAO {
     Boolean sendMoney(int userReceivingId);
