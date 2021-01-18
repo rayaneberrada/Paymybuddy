@@ -10,10 +10,10 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "transaction")
+@Table(name = "transactions")
 public class Transaction {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @NonNull
   public int id;
 

@@ -13,7 +13,7 @@ import java.util.Date;
 @Table(name = "card")
 public class Card {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @NonNull
   public int id;
 
@@ -24,4 +24,7 @@ public class Card {
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   @NonNull
   public User userId;
+
+  @OneToOne(mappedBy = "cardId")
+  public Transaction transaction;
 }

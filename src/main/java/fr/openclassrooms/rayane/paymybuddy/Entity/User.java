@@ -9,24 +9,28 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table( name = "user" )
+@Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NonNull public int Id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @NonNull
+  public int Id;
 
-    @NonNull public String firstName;
-    @NonNull public String lastName;
-    @NonNull public String email;
-    @NonNull public int money;
-    @NonNull public Boolean activated;
+  @NonNull public String firstName;
+  @NonNull public String lastName;
+  @NonNull public String email;
+  @NonNull public int money;
+  @NonNull public Boolean activated;
 
-    @OneToOne(mappedBy = "beneficiary")
-    public Beneficiary beneficiary;
+  @OneToOne(mappedBy = "userSendingId")
+  public Beneficiary beneficiarySending;
 
-    @OneToOne( mappedBy = "card")
-    public Card card;
+  @OneToOne(mappedBy = "userReceivingId")
+  public Beneficiary beneficiaryReceiving;
 
-    @OneToOne(mappedBy = "transaction")
-    public Transaction transaction;
+  @OneToOne(mappedBy = "userId")
+  public Card card;
+
+  @OneToOne(mappedBy = "userReceivingId")
+  public Transaction transaction;
 }
