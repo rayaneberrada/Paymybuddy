@@ -10,16 +10,18 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table( name = "card" )
+@Table(name = "card")
 public class Card {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NonNull public int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @NonNull
+  public int id;
 
-    @NonNull public String number;
-    @NonNull public Date expirationDate;
+  @NonNull public String number;
+  @NonNull public Date expirationDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @NonNull public User userId;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @NonNull
+  public User userId;
 }

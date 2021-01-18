@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 /** BeneficiaryDAO describe the crud methods expected to be implemented for the DAO */
 @Repository
 public interface UserDAO {
-    Boolean addUser(User userToAdd);
-    Boolean deactivateUser();
-    Boolean modifyUser();
-    User getUserInfo();
+  Boolean addUser(User userToAdd);
+
+  Boolean deactivateUser();
+
+  Boolean modifyUser();
+
+  User getUserInfo();
 }

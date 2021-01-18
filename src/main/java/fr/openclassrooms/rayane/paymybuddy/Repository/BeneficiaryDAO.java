@@ -8,7 +8,9 @@ import java.util.List;
 /** BeneficiaryDAO describe the crud methods expected to be implemented for the DAO */
 @Repository
 public interface BeneficiaryDAO {
-    Boolean addBeneficiary(String email);
-    Boolean removeBeneficiary();
-    List<Beneficiary> getAllUserBeneficiary();
+  Boolean addBeneficiary(String email);
+
+  Boolean removeBeneficiary();
+
+  List<Beneficiary> getAllUserBeneficiary();
 }

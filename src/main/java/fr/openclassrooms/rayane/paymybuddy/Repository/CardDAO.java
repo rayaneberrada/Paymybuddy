@@ -9,7 +9,9 @@ import java.util.List;
 /** CardDAO describe the crud methods expected to be implemented for the DAO */
 @Repository
 public interface CardDAO {
-    Boolean addCard(String cardNumber, Date expirationDate);
-    List<Card> getCards();
-    Boolean removeCard(int id);
+  Boolean addCard(String cardNumber, Date expirationDate);
+
+  List<Card> getCards();
+
+  Boolean removeCard(int id);
 }

@@ -12,19 +12,21 @@ import java.util.Date;
 @Setter
 @Table(name = "transaction")
 public class Transaction {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NonNull public int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  @NonNull
+  public int id;
 
+  @NonNull public int amount;
+  @NonNull public Date date;
 
-    @NonNull public int amount;
-    @NonNull public Date date;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_receiving_id", referencedColumnName = "id")
+  @NonNull
+  public User userReceivingId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_receiving_id", referencedColumnName = "id")
-    @NonNull public User userReceivingId;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "card_id", referencedColumnName = "id")
-    @NonNull public Card cardId;
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "card_id", referencedColumnName = "id")
+  @NonNull
+  public Card cardId;
 }

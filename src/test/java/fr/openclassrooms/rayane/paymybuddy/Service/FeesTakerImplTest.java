@@ -1,31 +1,30 @@
 package fr.openclassrooms.rayane.paymybuddy.Service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.*;
 
-@RunWith(MockitoJUnitRunner.class)
-@ExtendWith(MockitoExtension.class)
 public class FeesTakerImplTest {
 
-    private FeesTaker feesTaker = new FeesTakerImpl();
+  private FeesTaker feesTaker = new FeesTakerImpl();
+  private static Logger logger = LoggerFactory.getLogger(FeesTakerImplTest.class);
 
-    @Test
-    void feesDeducedTest() {
-        //GIVEN
-        int payment = 50;
-        double excepected = payment * 0.95;
+  @Test
+  void feesDeducedTest() {
+    // GIVEN
+    BigDecimal payment = new BigDecimal(50);
+    logger.info("Value before deduction: " + payment);
+    BigDecimal excepected = payment.multiply(BigDecimal.valueOf(0.95));
+    logger.info("Value after deduction: " + excepected);
 
-        //WHEN
-        double moneyLeft = feesTaker.deduceFees(payment);
+    // WHEN
+    BigDecimal moneyLeft = feesTaker.deduceFees(payment);
 
-        //THEN
-        assertThat(excepected).isEqualTo(moneyLeft);
-    }
-
+    // THEN
+    assertThat(excepected).isEqualTo(moneyLeft);
+  }
 }
