@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -17,7 +18,10 @@ public class Card {
   @NonNull
   public int id;
 
-  @NonNull public String number;
+  @Column(length = 50)
+  @Size(min = 16, max = 16)
+  public String number;
+
   @NonNull public Date expirationDate;
 
   @OneToOne(cascade = CascadeType.ALL)
