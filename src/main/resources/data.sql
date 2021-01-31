@@ -1,8 +1,8 @@
-INSERT INTO user (first_name, last_name, email, money, activated)
-VALUES ('rayane', 'berrada', 'be@gmail.cm', 1000, 1),
-       ('daniel', 'radcliff', 'danielradcliff@gmail.cm', 746, 1),
-       ('hervey', 'heipstein', 'herveyheipstein@gmail.cm', 100000000, 0),
-       ('john', 'boyd', 'johnboyd@gmail.cm', 500, 1);
+INSERT INTO user (username, password, email, money, enabled, role)
+VALUES ('rayane', 'abcd', 'be@gmail.cm', 1000, 1, 'USER'),
+       ('daniel', '1234', 'danielradcliff@gmail.cm', 746, 1, 'USER'),
+       ('hervey', '1234', 'herveyheipstein@gmail.cm', 100000000, 0, 'USER'),
+       ('john', '1234', 'johnboyd@gmail.cm', 500, 1, 'USER');
 
 INSERT INTO beneficiary (user_sending_id, user_receiving_id)
 VALUES (1, 2),

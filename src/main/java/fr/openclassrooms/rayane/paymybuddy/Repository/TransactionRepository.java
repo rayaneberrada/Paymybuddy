@@ -1,7 +1,7 @@
 package fr.openclassrooms.rayane.paymybuddy.Repository;
 
-import fr.openclassrooms.rayane.paymybuddy.Entity.Card;
 import fr.openclassrooms.rayane.paymybuddy.Entity.Transaction;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,7 @@ import java.util.List;
 
 /** TransactionRepository describe the methods expected to be implemented for the DAO */
 @Repository
-public interface TransactionRepository {
+public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
   /**
    * Method to send money from one user to another
@@ -33,9 +33,9 @@ public interface TransactionRepository {
       @Param("userReceivingId") int receivingId,
       @Param("moneySend") int amount);
 
-  Boolean debitMoney(int amount);
+  // Boolean debitMoney(int amount);
 
-  Boolean addMoney(int amount, Card card);
+  // Boolean addMoney(int amount, Card card);
 
   /**
    * The method search for all the cards own by the user in parameter and then all the transactions

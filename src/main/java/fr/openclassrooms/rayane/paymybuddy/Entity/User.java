@@ -3,34 +3,66 @@ package fr.openclassrooms.rayane.paymybuddy.Entity;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @NonNull
   public int id;
 
-  @NonNull public String firstName;
-  @NonNull public String lastName;
+  @NonNull public String username;
   @NonNull public String email;
+  @NonNull public String password;
   @NonNull public int money;
-  @NonNull public Boolean activated;
+  @NonNull public Boolean enabled;
+  @NonNull public String role;
 
-  @OneToOne(mappedBy = "userSendingId")
-  public Beneficiary beneficiarySending;
+  @OneToMany(mappedBy = "userSendingId")
+  public Set<Beneficiary> beneficiarySending;
 
-  @OneToOne(mappedBy = "userReceivingId")
-  public Beneficiary beneficiaryReceiving;
+  @OneToMany(mappedBy = "userReceivingId")
+  public Set<Beneficiary> beneficiaryReceiving;
 
-  @OneToOne(mappedBy = "userId")
-  public Card card;
+  @OneToMany(mappedBy = "userId")
+  public Set<Card> card;
 
-  @OneToOne(mappedBy = "userReceivingId")
-  public Transaction transaction;
+  @OneToMany(mappedBy = "userReceivingId")
+  public Set<Transaction> transaction;
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return Arrays.asList(new SimpleGrantedAuthority(this.role));
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return this.enabled;
+  }
 }

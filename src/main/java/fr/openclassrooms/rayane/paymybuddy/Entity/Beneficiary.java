@@ -16,12 +16,12 @@ public class Beneficiary {
   @NonNull
   public int id;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_sending_id", referencedColumnName = "id")
   @NonNull
   public User userSendingId;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "user_receiving_id", referencedColumnName = "id")
   @NonNull
   public User userReceivingId;

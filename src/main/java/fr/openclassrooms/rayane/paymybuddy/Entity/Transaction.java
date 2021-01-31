@@ -20,7 +20,7 @@ public class Transaction {
   @NonNull public int amount;
   @NonNull public Date date;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_receiving_id", referencedColumnName = "id")
   @NonNull
   public User userReceivingId;

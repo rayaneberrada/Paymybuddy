@@ -24,7 +24,7 @@ public class Card {
 
   @NonNull public Date expirationDate;
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   @NonNull
   public User userId;
