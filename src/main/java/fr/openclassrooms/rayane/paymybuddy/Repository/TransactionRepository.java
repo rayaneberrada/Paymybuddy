@@ -1,12 +1,15 @@
 package fr.openclassrooms.rayane.paymybuddy.Repository;
 
 import fr.openclassrooms.rayane.paymybuddy.Entity.Transaction;
+import fr.openclassrooms.rayane.paymybuddy.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /** TransactionRepository describe the methods expected to be implemented for the DAO */
 @Repository
@@ -28,25 +31,13 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
               + "                      END\n"
               + " WHERE id IN(:userSendingId, :userReceivingId);",
       nativeQuery = true)
+  @Modifying
   void sendMoney(
       @Param("userSendingId") int sendingId,
       @Param("userReceivingId") int receivingId,
       @Param("moneySend") int amount);
 
-  // Boolean debitMoney(int amount);
+  Optional<List<Transaction>> findAllByUserSendingId(User userSending);
 
-  // Boolean addMoney(int amount, Card card);
-
-  /**
-   * The method search for all the cards own by the user in parameter and then all the transactions
-   * made by the cards found for this user
-   *
-   * @param userId
-   * @return
-   */
-  @Query(
-      value =
-          "SELECT * FROM transactions WHERE card_id IN (SELECT id FROM card WHERE user_id = :userId)",
-      nativeQuery = true)
-  List<Transaction> getTransactionsMade(@Param("userId") int userId);
+  Optional<Transaction> findTransactionsById(int id);
 }

@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
    */
   @Query(value = "UPDATE User u SET u.enabled = false WHERE u.id = :userToModifyId")
   @Modifying
-  Boolean deactivateUser(@Param("userToModifyId") int userToModify);
+  int deactivateUser(@Param("userToModifyId") int userToModify);
 
   /**
    * Method allowing to modify the username and email of an user
@@ -33,7 +33,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
           "UPDATE User u SET u.username = :userName, "
               + "u.email = :email "
               + "WHERE u.id = :userToModifyId")
-  Boolean modifyUser(@Param("userName") String userName, @Param("email") String email);
+  @Modifying
+  int modifyUser(
+      @Param("userName") String userName,
+      @Param("email") String email,
+      @Param("userToModifyId") int userToModify);
 
   Optional<User> findUserByUsername(String username);
 }

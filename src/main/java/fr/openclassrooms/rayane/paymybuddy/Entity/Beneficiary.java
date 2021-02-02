@@ -1,19 +1,18 @@
 package fr.openclassrooms.rayane.paymybuddy.Entity;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "beneficiary")
 public class Beneficiary {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @NonNull
   public int id;
 
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -25,8 +25,8 @@ public class Transaction {
   @NonNull
   public User userReceivingId;
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "card_id", referencedColumnName = "id")
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_sending_id", referencedColumnName = "id")
   @NonNull
-  public Card cardId;
+  public User userSendingId;
 }

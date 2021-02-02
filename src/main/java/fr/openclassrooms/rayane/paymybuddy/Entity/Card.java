@@ -28,7 +28,4 @@ public class Card {
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   @NonNull
   public User userId;
-
-  @OneToOne(mappedBy = "cardId")
-  public Transaction transaction;
 }
