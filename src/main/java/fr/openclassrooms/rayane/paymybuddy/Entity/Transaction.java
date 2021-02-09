@@ -1,14 +1,16 @@
 package fr.openclassrooms.rayane.paymybuddy.Entity;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Table(name = "transactions")
 public class Transaction {
@@ -23,10 +25,12 @@ public class Transaction {
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_receiving_id", referencedColumnName = "id")
   @NonNull
+  @JsonIgnore
   public User userReceivingId;
 
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_sending_id", referencedColumnName = "id")
   @NonNull
+  @JsonIgnore
   public User userSendingId;
 }

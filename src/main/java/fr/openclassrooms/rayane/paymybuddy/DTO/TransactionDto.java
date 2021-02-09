@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TransactionDto {
-  @NonNull int sendingId;
   @NonNull int receivingId;
   @NonNull int amount;
 }

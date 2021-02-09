@@ -27,16 +27,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
         .authorizeRequests()
-        .antMatchers("/transaction/**", "/beneficiary/**")
+        .antMatchers("/transaction/**", "/beneficiary/**", "/user/**")
         .hasAuthority("USER")
         .antMatchers("/h2-console/**")
         .permitAll()
         .anyRequest()
         .authenticated()
         .and()
+        .formLogin()
+        .and()
         .httpBasic();
 
-    httpSecurity.csrf().disable();
+    httpSecurity.logout().logoutUrl("/user/logout");
+
+    // httpSecurity.csrf().disable();
     httpSecurity.headers().frameOptions().sameOrigin();
   }
 

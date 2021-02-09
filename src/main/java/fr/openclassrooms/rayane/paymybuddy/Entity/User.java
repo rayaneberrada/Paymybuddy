@@ -1,5 +1,6 @@
 package fr.openclassrooms.rayane.paymybuddy.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -30,15 +31,19 @@ public class User implements UserDetails {
   @NonNull public String role;
 
   @OneToMany(mappedBy = "userSendingId")
+  @JsonIgnore
   public Set<Beneficiary> beneficiarySending;
 
   @OneToMany(mappedBy = "userReceivingId")
+  @JsonIgnore
   public Set<Beneficiary> beneficiaryReceiving;
 
   @OneToMany(mappedBy = "userId")
+  @JsonIgnore
   public Set<Card> card;
 
   @OneToMany(mappedBy = "userReceivingId")
+  @JsonIgnore
   public Set<Transaction> transaction;
 
   @Override
