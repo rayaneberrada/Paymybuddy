@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class UserDto {
+public class UserDtoCustom {
   @NonNull public int id;
   @NonNull public String username;
   @NonNull public String email;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+/** Class to manage cards in db */
 @RestController
 @RequestMapping("/card")
 public class CardController {
@@ -21,6 +22,13 @@ public class CardController {
 
   @Autowired UserRepository userRepository;
 
+  /**
+   * Route to add a card in database
+   *
+   * @param cardToAdd
+   * @param authentication
+   * @return card if added, else null
+   */
   @PostMapping("/add")
   public Card addCard(@RequestBody CardDto cardToAdd, Authentication authentication) {
     logger.info("http://localhost:8080/card/add");
@@ -38,6 +46,13 @@ public class CardController {
     }
   }
 
+  /**
+   * Route to add money to user account
+   *
+   * @param amount
+   * @param authentication
+   * @return 1 if value succesfully update, else 0
+   */
   @PutMapping("/addMoney")
   public int addMoney(int amount, Authentication authentication) {
     logger.info("http://localhost:8080/card/add");
@@ -50,6 +65,13 @@ public class CardController {
     }
   }
 
+  /**
+   * Route to remove money from user account to user bank account
+   *
+   * @param amount
+   * @param authentication
+   * @return 1 if successfully updated, else 0
+   */
   @PutMapping("/debitMoney")
   public int debitMoney(int amount, Authentication authentication) {
     logger.info("http://localhost:8080/card/add");
@@ -62,6 +84,12 @@ public class CardController {
     }
   }
 
+  /**
+   * Route to remove card from user cards
+   *
+   * @param cardDto
+   * @param authentication
+   */
   @DeleteMapping("/delete")
   public void deleteCard(@RequestBody CardDto cardDto, Authentication authentication) {
     logger.info("http://localhost:8080/card/delete");
@@ -73,6 +101,12 @@ public class CardController {
     }
   }
 
+  /**
+   * Route to get card informations from user
+   *
+   * @param cardDto
+   * @return Card if found, else null
+   */
   @GetMapping("/get")
   public Card getCard(@RequestBody CardDto cardDto) {
     logger.info("http://localhost:8080/card/get");
@@ -84,6 +118,12 @@ public class CardController {
     }
   }
 
+  /**
+   * Route to get all cards related to a specific user
+   *
+   * @param authentication
+   * @return all Card that belong to a user, else null
+   */
   @GetMapping("/getAll")
   public ArrayList<Card> getCard(Authentication authentication) {
     logger.info("http://localhost:8080/card/getAll");

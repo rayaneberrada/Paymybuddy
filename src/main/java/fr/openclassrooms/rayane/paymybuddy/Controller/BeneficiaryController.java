@@ -7,6 +7,7 @@ import fr.openclassrooms.rayane.paymybuddy.Repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -29,14 +30,15 @@ public class BeneficiaryController {
    * @param beneficiary
    */
   @PostMapping("/add")
-  public void addBeneficiary(@RequestBody BeneficiaryDto beneficiary) {
+  public int addBeneficiary(@RequestBody BeneficiaryDto beneficiary) {
     logger.info("http://localhost:8080/beneficiary/add");
     try {
-      beneficiaryRepository.save(beneficiary.getUserSendingId(), beneficiary.getUserReceivingId());
+      return beneficiaryRepository.save(
+          beneficiary.getUserSendingId(), beneficiary.getUserReceivingId());
     } catch (Exception e) {
       logger.error("We couldn't add a beneficiary: " + e);
+      return 0;
     }
-    // ajouter une exception si insert ne renvoie pas 1 à rowAdded?
   }
 
   /**
@@ -46,13 +48,14 @@ public class BeneficiaryController {
    * @param beneficiary
    */
   @DeleteMapping("/delete")
-  public void deleteBeneficiary(@RequestBody BeneficiaryDto beneficiary) {
+  public int deleteBeneficiary(@RequestBody BeneficiaryDto beneficiary) {
     logger.info("http://localhost:8080/beneficiary/delete");
     try {
-      beneficiaryRepository.delete(
+      return beneficiaryRepository.delete(
           beneficiary.getUserSendingId(), beneficiary.getUserReceivingId());
     } catch (Exception e) {
       logger.error("We couldn't delete this beneficiary: " + e);
+      return 0;
     }
   }
 
@@ -62,17 +65,25 @@ public class BeneficiaryController {
    */
   @GetMapping("/get/{id}")
   public Beneficiary getBeneficiaryById(@PathVariable int id) {
-    logger.info("http://localhost:8080/beneficiary/get/" + id);
-    return beneficiaryRepository.findById(id).get();
+    try {
+      logger.info("http://localhost:8080/beneficiary/get/" + id);
+      return beneficiaryRepository.findById(id).get();
+    } catch (Exception e) {
+      logger.error("We couldn't find a beneficiary with this id");
+      return null;
+    }
   }
 
-  /**
-   * @param userId
-   * @return a list of all beneficiaries who have the user defined in param by it's id
-   */
+  /** @return a list of all beneficiaries who have the user defined in param by it's id */
   @GetMapping("/getAll")
-  public ArrayList<Beneficiary> getUserBeneficiary(int userId) {
-    logger.info("http://localhost:8080/beneficiary/getAll?userId=" + userId);
-    return beneficiaryRepository.findAllByUserSendingId(userRepository.findById(userId).get());
+  public ArrayList<Beneficiary> getUserBeneficiary(Authentication authentication) {
+    try {
+      logger.info("http://localhost:8080/beneficiary/getAll");
+      return beneficiaryRepository.findAllByUserSendingId(
+          userRepository.findUserByUsername(authentication.getName()).get());
+    } catch (Exception e) {
+      logger.error("We couldn't find a beneficiary with this id");
+      return null;
+    }
   }
 }

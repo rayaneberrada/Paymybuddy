@@ -27,7 +27,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
         .authorizeRequests()
-        .antMatchers("/transaction/**", "/beneficiary/**", "/user/**")
+        .antMatchers("/transaction/**", "/beneficiary/**", "/user/**", "/card/**")
         .hasAuthority("USER")
         .antMatchers("/h2-console/**")
         .permitAll()

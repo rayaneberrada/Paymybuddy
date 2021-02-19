@@ -1,6 +1,6 @@
 package fr.openclassrooms.rayane.paymybuddy.Controller;
 
-import fr.openclassrooms.rayane.paymybuddy.DTO.UserDto;
+import fr.openclassrooms.rayane.paymybuddy.DTO.UserDtoCustom;
 import fr.openclassrooms.rayane.paymybuddy.Entity.User;
 import fr.openclassrooms.rayane.paymybuddy.Repository.UserRepository;
 import org.slf4j.Logger;
@@ -17,13 +17,19 @@ public class UserController {
 
   @Autowired UserRepository userRepository;
 
+  /**
+   * Route to deactivate User
+   *
+   * @param id
+   */
   @PutMapping("/deactivate/{id}")
-  public void deactivateUser(@PathVariable int id) {
+  public int deactivateUser(@PathVariable int id) {
     logger.info("http://localhost:8080/user/deactivate/" + id);
     try {
-      userRepository.deactivateUser(id);
+      return userRepository.deactivateUser(id);
     } catch (Exception e) {
       logger.error("Couldn't deactivate user. Exception raised: " + e);
+      return 0;
     }
   }
 
@@ -33,25 +39,38 @@ public class UserController {
    * @param userDto
    */
   @PutMapping("/modify")
-  public void modifyUser(@RequestBody UserDto userDto) {
+  public int modifyUser(@RequestBody UserDtoCustom userDto) {
     logger.info("http://localhost:8080/user/get");
     try {
-      userRepository.modifyUser(userDto.username, userDto.email, userDto.id);
+      return userRepository.modifyUser(userDto.username, userDto.email, userDto.id);
     } catch (Exception e) {
       logger.error("Couldn't modify user: " + e);
+      return 0;
     }
   }
 
+  /**
+   * Route to add a new user in database
+   *
+   * @param user
+   */
   @PostMapping("/add")
-  public void addUser(@RequestBody User user) {
+  public User addUser(@RequestBody User user) {
     logger.info("http://localhost:8080/user/add");
     try {
-      userRepository.save(user);
+      return userRepository.save(user);
     } catch (Exception e) {
       logger.error("Couldn't save user: " + e);
+      return null;
     }
   }
 
+  /**
+   * Route to get info for a specific user
+   *
+   * @param id
+   * @return User infos
+   */
   @GetMapping("/get/{id}")
   public User getUser(@PathVariable int id) {
     logger.info("http://localhost:8080/user/get/" + id);

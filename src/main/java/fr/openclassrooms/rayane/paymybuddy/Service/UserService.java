@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * This class is a custom implementation of UserDetailsService and has for purpose to verify user
+ * credentials using informations contained in database
+ */
 @Service
 public class UserService implements UserDetailsService {
 

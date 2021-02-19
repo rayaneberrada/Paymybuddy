@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 
+/** Controller class to manage transactions in db */
 @RestController
 @RequestMapping("/transaction")
 public class TransactionController {
@@ -23,8 +24,15 @@ public class TransactionController {
 
   @Autowired UserRepository userRepository;
 
+  /**
+   * Route to send money from one user to another
+   *
+   * @param transactionDto
+   * @param authentication
+   */
   @PutMapping("/transfer")
-  public void sendMoney(@RequestBody TransactionDto transactionDto, Authentication authentication) {
+  public Transaction sendMoney(
+      @RequestBody TransactionDto transactionDto, Authentication authentication) {
     logger.info("http://localhost:8080/transaction/transfer");
     try {
       transactionRepository.sendMoney(
@@ -32,7 +40,7 @@ public class TransactionController {
           transactionDto.getReceivingId(),
           transactionDto.getAmount());
 
-      transactionRepository.save(
+      return transactionRepository.save(
           Transaction.builder()
               .amount(transactionDto.getAmount())
               .userSendingId(userRepository.findUserByUsername(authentication.getName()).get())
@@ -41,9 +49,16 @@ public class TransactionController {
               .build());
     } catch (Exception e) {
       logger.error("couldn't send money: " + e);
+      return null;
     }
   }
 
+  /**
+   * Route to get informations related to a specific transaction
+   *
+   * @param id
+   * @return Transaction object containing info if success, else null
+   */
   @GetMapping("/get/{id}")
   public Transaction getTransactionById(@PathVariable int id) {
     logger.info("http://localhost:8080/transaction/get/" + id);
@@ -55,11 +70,17 @@ public class TransactionController {
     }
   }
 
+  /**
+   * Route to get all transactions related to a connected user
+   *
+   * @return every Transaction belonging to the user making the request, if fail return null
+   */
   @GetMapping("/getAll")
-  public ArrayList<Transaction> getUserTransactions(int userId) {
-    logger.info("http://localhost:8080/transaction/getAll/" + userId);
+  public ArrayList<Transaction> getUserTransactions(Authentication authentication) {
+    logger.info("http://localhost:8080/transaction/getAll/");
     try {
-      return transactionRepository.findAllByUserSendingId(userRepository.findById(userId).get());
+      return transactionRepository.findAllByUserSendingId(
+          userRepository.findUserByUsername(authentication.getName()).get());
     } catch (Exception e) {
       logger.error("Couldn't fetch transactions: " + e);
       return null;
