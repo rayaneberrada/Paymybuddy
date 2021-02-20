@@ -25,9 +25,10 @@ mvn spring-boot:run
 
 ## UML diagram of database
 
-![Diagramme de classe](https://user-images.githubusercontent.com/32037609/108604118-15aa8d00-73ac-11eb-8305-196e24171d82.png)
+![P6_02_diagramme_uml](https://user-images.githubusercontent.com/32037609/108604146-4ee2fd00-73ac-11eb-88c6-8d632081bbe1.png)
 
 
 ## Physical schema
 
-![P6_02_diagramme_uml](https://user-images.githubusercontent.com/32037609/108604146-4ee2fd00-73ac-11eb-88c6-8d632081bbe1.png)
+![MPD](https://user-images.githubusercontent.com/32037609/108604174-6621ea80-73ac-11eb-866e-63120aabd0cc.png)
+
