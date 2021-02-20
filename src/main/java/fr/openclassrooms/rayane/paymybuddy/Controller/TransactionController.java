@@ -4,7 +4,7 @@ import fr.openclassrooms.rayane.paymybuddy.DTO.TransactionDto;
 import fr.openclassrooms.rayane.paymybuddy.Entity.Transaction;
 import fr.openclassrooms.rayane.paymybuddy.Repository.TransactionRepository;
 import fr.openclassrooms.rayane.paymybuddy.Repository.UserRepository;
-import fr.openclassrooms.rayane.paymybuddy.Service.TransactionServiceImpl;
+import fr.openclassrooms.rayane.paymybuddy.Service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class TransactionController {
 
   private static Logger logger = LoggerFactory.getLogger(TransactionController.class);
 
-  @Autowired TransactionServiceImpl transactionServiceImpl;
+  @Autowired TransactionService transactionService;
 
   @Autowired TransactionRepository transactionRepository;
 
@@ -37,7 +37,7 @@ public class TransactionController {
       @RequestBody TransactionDto transactionDto, Authentication authentication) {
     logger.info("http://localhost:8080/transaction/transfer");
     try {
-      return transactionServiceImpl.sendMoney(transactionDto, authentication.getName());
+      return transactionService.sendMoney(transactionDto, authentication.getName());
     } catch (Exception e) {
       logger.error("Couldn't proceed transaction: " + e);
       return null;

@@ -6,7 +6,7 @@ import fr.openclassrooms.rayane.paymybuddy.Entity.Card;
 import fr.openclassrooms.rayane.paymybuddy.Entity.Transaction;
 import fr.openclassrooms.rayane.paymybuddy.Repository.CardRepository;
 import fr.openclassrooms.rayane.paymybuddy.Repository.UserRepository;
-import fr.openclassrooms.rayane.paymybuddy.Service.TransactionServiceImpl;
+import fr.openclassrooms.rayane.paymybuddy.Service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CardController {
 
   @Autowired UserRepository userRepository;
 
-  @Autowired TransactionServiceImpl transactionService;
+  @Autowired TransactionService transactionService;
 
   /**
    * Route to add a card in database

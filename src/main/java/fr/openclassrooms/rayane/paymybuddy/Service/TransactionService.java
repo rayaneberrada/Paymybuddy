@@ -9,15 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 
 /** Service to manage and register transactions */
 @Service
-public class TransactionServiceImpl {
+public class TransactionService {
 
-  private static Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
+  private static Logger logger = LoggerFactory.getLogger(TransactionService.class);
 
   @Autowired TransactionRepository transactionRepository;
 
@@ -34,7 +34,7 @@ public class TransactionServiceImpl {
    * @param username
    * @return Transaction object of the exchange between user's
    */
-  @Transactional
+  @Transactional(rollbackFor = Exception.class)
   public Transaction sendMoney(TransactionDto transactionDto, String username) {
     transactionDto.setAmount(feesTaker.deduceFees(transactionDto.getAmount()));
 
@@ -59,7 +59,7 @@ public class TransactionServiceImpl {
    * @param username
    * @return Transaction object related to the action
    */
-  @Transactional
+  @Transactional(rollbackFor = Exception.class)
   public Transaction addMoney(TransactionDto transactionDto, String username) {
     int userId = userRepository.findUserByUsername(username).get().getId();
 
@@ -82,7 +82,7 @@ public class TransactionServiceImpl {
    * @param username
    * @return Transaction object related to the action
    */
-  @Transactional
+  @Transactional(rollbackFor = Exception.class)
   public Transaction debitMoney(TransactionDto transactionDto, String username) {
     int userId = userRepository.findUserByUsername(username).get().getId();
 

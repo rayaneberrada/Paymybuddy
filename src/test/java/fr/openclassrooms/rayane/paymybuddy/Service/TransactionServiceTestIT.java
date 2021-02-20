@@ -17,7 +17,7 @@ public class TransactionServiceTestIT {
 
   @Autowired EntityManager entityManager;
 
-  @Autowired TransactionServiceImpl transactionService;
+  @Autowired TransactionService transactionService;
 
   @Autowired UserRepository userRepository;
 
