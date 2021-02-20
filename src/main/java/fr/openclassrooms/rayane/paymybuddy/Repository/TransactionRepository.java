@@ -37,7 +37,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
   void sendMoney(
       @Param("userSendingId") int sendingId,
       @Param("userReceivingId") int receivingId,
-      @Param("moneySend") int amount);
+      @Param("moneySend") float amount);
 
   ArrayList<Transaction> findAllByUserSendingId(User userId);
 

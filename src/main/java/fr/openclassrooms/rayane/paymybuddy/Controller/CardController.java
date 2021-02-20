@@ -1,9 +1,12 @@
 package fr.openclassrooms.rayane.paymybuddy.Controller;
 
 import fr.openclassrooms.rayane.paymybuddy.DTO.CardDto;
+import fr.openclassrooms.rayane.paymybuddy.DTO.TransactionDto;
 import fr.openclassrooms.rayane.paymybuddy.Entity.Card;
+import fr.openclassrooms.rayane.paymybuddy.Entity.Transaction;
 import fr.openclassrooms.rayane.paymybuddy.Repository.CardRepository;
 import fr.openclassrooms.rayane.paymybuddy.Repository.UserRepository;
+import fr.openclassrooms.rayane.paymybuddy.Service.TransactionServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,8 @@ public class CardController {
   @Autowired CardRepository cardRepository;
 
   @Autowired UserRepository userRepository;
+
+  @Autowired TransactionServiceImpl transactionService;
 
   /**
    * Route to add a card in database
@@ -54,14 +59,13 @@ public class CardController {
    * @return 1 if value succesfully update, else 0
    */
   @PutMapping("/addMoney")
-  public int addMoney(int amount, Authentication authentication) {
+  public Transaction addMoney(TransactionDto transactionDto, Authentication authentication) {
     logger.info("http://localhost:8080/card/add");
     try {
-      return cardRepository.addMoney(
-          userRepository.findUserByUsername(authentication.getName()).get().getId(), amount);
+      return transactionService.addMoney(transactionDto, authentication.getName());
     } catch (Exception e) {
       logger.error("impossible to add money: " + e);
-      return 0;
+      return null;
     }
   }
 
@@ -73,14 +77,13 @@ public class CardController {
    * @return 1 if successfully updated, else 0
    */
   @PutMapping("/debitMoney")
-  public int debitMoney(int amount, Authentication authentication) {
+  public Transaction debitMoney(TransactionDto transactionDto, Authentication authentication) {
     logger.info("http://localhost:8080/card/add");
     try {
-      return cardRepository.debitMoney(
-          userRepository.findUserByUsername(authentication.getName()).get().getId(), amount);
+      return transactionService.debitMoney(transactionDto, authentication.getName());
     } catch (Exception e) {
-      logger.error("impossible to debit money: " + e);
-      return 0;
+      logger.error("impossible to add money: " + e);
+      return null;
     }
   }
 
@@ -91,13 +94,14 @@ public class CardController {
    * @param authentication
    */
   @DeleteMapping("/delete")
-  public void deleteCard(@RequestBody CardDto cardDto, Authentication authentication) {
+  public int deleteCard(@RequestBody CardDto cardDto, Authentication authentication) {
     logger.info("http://localhost:8080/card/delete");
     try {
-      cardRepository.delete(
+      return cardRepository.delete(
           userRepository.findUserByUsername(authentication.getName()).get(), cardDto.getNumber());
     } catch (Exception e) {
       logger.error("card coudldn't be deleted: " + e);
+      return 0;
     }
   }
 

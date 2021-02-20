@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-
 import static org.assertj.core.api.Assertions.*;
 
 public class FeesTakerImplTest {
@@ -16,13 +14,13 @@ public class FeesTakerImplTest {
   @Test
   void feesDeducedTest() {
     // GIVEN
-    BigDecimal payment = new BigDecimal(50);
+    float payment = 50;
     logger.info("Value before deduction: " + payment);
-    BigDecimal excepected = payment.multiply(BigDecimal.valueOf(0.95));
+    float excepected = (float) Math.round(payment * 100 * 0.95) / 100;
     logger.info("Value after deduction: " + excepected);
 
     // WHEN
-    BigDecimal moneyLeft = feesTaker.deduceFees(payment);
+    float moneyLeft = feesTaker.deduceFees(payment);
 
     // THEN
     assertThat(excepected).isEqualTo(moneyLeft);

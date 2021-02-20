@@ -25,8 +25,8 @@ public class TransactionRepositoryTestIT {
     // GIVEN
     Optional<User> userSending = userRepository.findUserByUsername("rayane");
     Optional<User> userReceiving = userRepository.findUserByUsername("john");
-    int userSendingMoney = userSending.get().money;
-    int userReceivingMoney = userReceiving.get().money;
+    float userSendingMoney = userSending.get().money;
+    float userReceivingMoney = userReceiving.get().money;
 
     // WHEN
     transactionRepository.sendMoney(userSending.get().id, userReceiving.get().id, 50);

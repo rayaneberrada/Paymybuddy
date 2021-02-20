@@ -23,7 +23,7 @@ public class CardRepositoryTestIT {
   public void Update_UserMoney_AfterAddingMoney() {
     // GIVEN
     Optional<User> user = userRepository.findUserByUsername("rayane");
-    int userMoney = user.get().money;
+    float userMoney = user.get().money;
 
     // WHEN
     cardRepository.addMoney(user.get().id, 100);
@@ -37,7 +37,7 @@ public class CardRepositoryTestIT {
   public void Update_UserMoney_AfterDebiting() {
     // GIVEN
     Optional<User> user = userRepository.findUserByUsername("rayane");
-    int userMoney = user.get().money;
+    float userMoney = user.get().money;
 
     // WHEN
     cardRepository.debitMoney(user.get().id, 100);

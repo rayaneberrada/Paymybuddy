@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter
 public class TransactionDto {
   @NonNull int receivingId;
-  @NonNull int amount;
+  @NonNull float amount;
 }

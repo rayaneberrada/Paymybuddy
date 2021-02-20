@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
@@ -23,12 +24,25 @@ public class User implements UserDetails {
   @NonNull
   public int id;
 
-  @NonNull public String username;
-  @NonNull public String email;
-  @NonNull public String password;
-  @NonNull public int money;
+  @Size(max = 15)
+  @NonNull
+  public String username;
+
+  @Column(unique = true)
+  @Size(max = 40)
+  @NonNull
+  public String email;
+
+  @Size(max = 15)
+  @NonNull
+  public String password;
+
+  @NonNull public float money;
   @NonNull public Boolean enabled;
-  @NonNull public String role;
+
+  @Size(max = 15)
+  @NonNull
+  public String role;
 
   @OneToMany(mappedBy = "userSendingId")
   @JsonIgnore

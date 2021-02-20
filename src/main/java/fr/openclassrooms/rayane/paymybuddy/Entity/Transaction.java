@@ -19,7 +19,7 @@ public class Transaction {
   @NonNull
   public int id;
 
-  @NonNull public int amount;
+  @NonNull public float amount;
   @NonNull public Date date;
 
   @ManyToOne(cascade = CascadeType.ALL)

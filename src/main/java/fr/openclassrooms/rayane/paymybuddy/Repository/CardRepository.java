@@ -22,7 +22,7 @@ public interface CardRepository extends JpaRepository<Card, Integer> {
   @Query(value = "UPDATE User u SET u.money = u.money - :moneyToAdd WHERE u.id = :userId")
   @Modifying
   @Transactional
-  int debitMoney(@Param("userId") int userId, @Param("moneyToAdd") int amount);
+  int debitMoney(@Param("userId") int userId, @Param("moneyToAdd") float amount);
 
   /**
    * Method to add money on the user app account from it's bank account
@@ -32,7 +32,7 @@ public interface CardRepository extends JpaRepository<Card, Integer> {
   @Query(value = "UPDATE User u SET u.money = u.money + :moneyToAdd WHERE u.id = :userId")
   @Modifying
   @Transactional
-  int addMoney(@Param("userId") int userId, @Param("moneyToAdd") int amount);
+  int addMoney(@Param("userId") int userId, @Param("moneyToAdd") float amount);
 
   @Modifying
   @Transactional

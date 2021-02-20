@@ -7,7 +7,7 @@ spring:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: test
-    password: test
+    password: ENC(sdjxanhFVDz3W8IKXPw/bw==)
   logging:
     level:
       org:
@@ -16,3 +16,7 @@ spring:
   h2:
     console:
       enabled: true
+jasypt:
+  encryptor:
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    algorithm: PBEWithMD5AndDES

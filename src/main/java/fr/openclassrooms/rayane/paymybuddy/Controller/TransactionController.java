@@ -4,6 +4,7 @@ import fr.openclassrooms.rayane.paymybuddy.DTO.TransactionDto;
 import fr.openclassrooms.rayane.paymybuddy.Entity.Transaction;
 import fr.openclassrooms.rayane.paymybuddy.Repository.TransactionRepository;
 import fr.openclassrooms.rayane.paymybuddy.Repository.UserRepository;
+import fr.openclassrooms.rayane.paymybuddy.Service.TransactionServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /** Controller class to manage transactions in db */
 @RestController
@@ -19,6 +19,8 @@ import java.util.Date;
 public class TransactionController {
 
   private static Logger logger = LoggerFactory.getLogger(TransactionController.class);
+
+  @Autowired TransactionServiceImpl transactionServiceImpl;
 
   @Autowired TransactionRepository transactionRepository;
 
@@ -35,20 +37,9 @@ public class TransactionController {
       @RequestBody TransactionDto transactionDto, Authentication authentication) {
     logger.info("http://localhost:8080/transaction/transfer");
     try {
-      transactionRepository.sendMoney(
-          userRepository.findUserByUsername(authentication.getName()).get().getId(),
-          transactionDto.getReceivingId(),
-          transactionDto.getAmount());
-
-      return transactionRepository.save(
-          Transaction.builder()
-              .amount(transactionDto.getAmount())
-              .userSendingId(userRepository.findUserByUsername(authentication.getName()).get())
-              .userReceivingId(userRepository.findById(transactionDto.getReceivingId()).get())
-              .date(new Date(System.currentTimeMillis()))
-              .build());
+      return transactionServiceImpl.sendMoney(transactionDto, authentication.getName());
     } catch (Exception e) {
-      logger.error("couldn't send money: " + e);
+      logger.error("Couldn't proceed transaction: " + e);
       return null;
     }
   }
