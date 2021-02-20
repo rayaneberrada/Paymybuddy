@@ -25,8 +25,9 @@ mvn spring-boot:run
 
 ## UML diagram of database
 
-![Uml diagram](C:\Users\berra\Documents\Programming projects\Projet 6\DDD.png)
+![Diagramme de classe](https://user-images.githubusercontent.com/32037609/108604118-15aa8d00-73ac-11eb-8305-196e24171d82.png)
 
-## Class Diagram
 
-![Class diagram](C:\Users\berra\Documents\Programming projects\Projet 6\Diagramme de classe.png)
+## Physical schema
+
+![P6_02_diagramme_uml](https://user-images.githubusercontent.com/32037609/108604146-4ee2fd00-73ac-11eb-88c6-8d632081bbe1.png)
