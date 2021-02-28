@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class FeesTakerImplTest {
@@ -14,9 +17,15 @@ public class FeesTakerImplTest {
   @Test
   void feesDeducedTest() {
     // GIVEN
-    float payment = 50;
+    BigDecimal payment = new BigDecimal(50);
     logger.info("Value before deduction: " + payment);
-    float excepected = (float) Math.round(payment * 100 * 0.95) / 100;
+    float excepected =
+        payment
+            .multiply(new BigDecimal(100))
+            .multiply(new BigDecimal(0.95))
+            .divide(new BigDecimal(100))
+            .setScale(2, RoundingMode.HALF_UP)
+            .floatValue();
     logger.info("Value after deduction: " + excepected);
 
     // WHEN

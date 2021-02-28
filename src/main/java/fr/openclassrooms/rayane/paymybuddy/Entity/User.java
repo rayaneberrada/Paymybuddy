@@ -24,22 +24,28 @@ public class User implements UserDetails {
   @NonNull
   public int id;
 
+  @Column(length = 15)
   @Size(max = 15)
   @NonNull
   public String username;
 
-  @Column(unique = true)
+  @Column(unique = true, length = 40)
   @Size(max = 40)
   @NonNull
   public String email;
 
+  @Column(length = 15)
   @Size(max = 15)
   @NonNull
   public String password;
 
-  @NonNull public float money;
+  @Column(precision = 8, scale = 2, columnDefinition = "DECIMAL(8,2)")
+  @NonNull
+  public float money;
+
   @NonNull public Boolean enabled;
 
+  @Column(length = 15)
   @Size(max = 15)
   @NonNull
   public String role;

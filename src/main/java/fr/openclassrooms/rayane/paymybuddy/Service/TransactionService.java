@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /** Service to manage and register transactions */
@@ -36,7 +37,7 @@ public class TransactionService {
    */
   @Transactional(rollbackFor = Exception.class)
   public Transaction sendMoney(TransactionDto transactionDto, String username) {
-    transactionDto.setAmount(feesTaker.deduceFees(transactionDto.getAmount()));
+    transactionDto.setAmount(feesTaker.deduceFees(new BigDecimal(transactionDto.getAmount())));
 
     transactionRepository.sendMoney(
         userRepository.findUserByUsername(username).get().getId(),
